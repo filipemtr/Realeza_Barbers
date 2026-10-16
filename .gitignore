@@ -1,0 +1,36 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and packaging/build output
+.venv/
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Local environment configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Local audit output
+/logs/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
