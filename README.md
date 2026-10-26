@@ -4,6 +4,9 @@ Sistema web de agendamento para barbearia, desenvolvido com **React, TypeScript,
 
 > Projeto educacional/portfólio. A documentação descreve a implementação atual; antes de usar em produção, consulte [Desenvolvimento seguro](docs/SEGURANCA.md) e [a auditoria técnica](AUDIT.md).
 
+<img src="imgs/image.png" alt="Demonstração do Realeza Barbers" width="100%">
+
+
 ## Índice
 
 - [Funcionalidades](#funcionalidades)
