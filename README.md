@@ -1,149 +1,169 @@
-# Realeza Barbers ✂️👑
+<div align="center">
 
-Sistema web de agendamento para barbearia, desenvolvido com **React, TypeScript, Tailwind CSS, FastAPI e SQLite**. O projeto permite consultar serviços, criar e gerenciar agendamentos e administrar contas conforme o perfil de acesso.
+# ✂️ Realeza Barbers 👑
 
-> Projeto educacional/portfólio. A documentação descreve a implementação atual; antes de usar em produção, consulte [Desenvolvimento seguro](docs/SEGURANCA.md) e [a auditoria técnica](AUDIT.md).
+### Gestão de agendamentos, serviços e clientes em uma experiência web moderna.
 
-<img src="imgs/image.png" alt="Demonstração do Realeza Barbers" width="100%">
+**Uma plataforma para conectar clientes e profissionais, organizar horários e simplificar a rotina de uma barbearia.**
 
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 
-## Índice
+[Funcionalidades](#-funcionalidades) · [Demonstração](#-prévia-do-sistema) · [Arquitetura](#-arquitetura) · [Como executar](#-executando-localmente) · [Segurança](#-segurança-e-boas-práticas)
 
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Arquitetura e estrutura](#arquitetura-e-estrutura)
-- [Perfis e permissões](#perfis-e-permissões)
-- [Executar localmente](#executar-localmente)
-- [Variáveis de ambiente](#variáveis-de-ambiente)
-- [Contas e dados de demonstração](#contas-e-dados-de-demonstração)
-- [API](#api)
-- [Banco de dados](#banco-de-dados)
-- [Testes](#testes)
-- [Desenvolvimento seguro](docs/SEGURANCA.md)
-- [Arquitetura detalhada](docs/ARQUITETURA.md)
-- [Auditoria técnica](AUDIT.md)
+</div>
 
-## Funcionalidades
+---
 
-- Página inicial responsiva com apresentação da barbearia e dos serviços.
-- Cadastro público de clientes, login, consulta da sessão atual e logout.
-- Sessões baseadas em cookie HTTP-only.
-- Listagem de serviços ativos, incluindo preço e duração.
-- Consulta de horários disponíveis por serviço, data e barbeiro.
-- Criação, consulta, alteração e cancelamento de agendamentos.
-- Permissões diferentes para cliente, barbeiro e administrador.
-- Painel administrativo para gerenciar usuários e serviços.
-- Registro de eventos relevantes para auditoria em SQLite e arquivo JSON Lines.
-- Documentação interativa da API via Swagger UI.
+## 👑 Sobre o projeto
 
-## Tecnologias
+O **Realeza Barbers** é um sistema web de gerenciamento de barbearia, desenvolvido como projeto de estudo e portfólio. A aplicação reúne em um único ambiente a apresentação dos serviços, a consulta de horários disponíveis, o agendamento de atendimentos e funcionalidades administrativas para gerenciar a operação.
+
+O projeto utiliza uma **arquitetura separada entre frontend e API**, com regras de acesso distintas para clientes, barbeiros e administradores. A proposta é unir experiência de uso, organização da agenda e controle das operações de uma barbearia.
+
+> **Status:** projeto educacional. Para uso em produção, são necessários ajustes adicionais de infraestrutura e segurança descritos em [AUDIT.md](AUDIT.md).
+
+## 📸 Prévia do sistema
+
+<div align="center">
+
+### Página inicial
+<img src="imgs/image.png" alt="Página inicial do Realeza Barbers" width="100%" />
+
+</div>
+
+## ✨ Funcionalidades
+
+- **Página inicial responsiva:** apresentação da barbearia e de seus serviços.
+- **Autenticação de usuários:** cadastro de clientes, login, logout e consulta à sessão atual.
+- **Catálogo de serviços:** exibição dos serviços ativos com preços e duração.
+- **Disponibilidade:** consulta de horários por data, serviço e barbeiro.
+- **Agendamentos:** criação, visualização, alteração e cancelamento, respeitando regras de horários e permissões.
+- **Perfis de acesso:** experiências e permissões específicas para cliente, barbeiro e administrador.
+- **Administração:** gerenciamento de usuários e serviços, com acesso condicionado ao perfil.
+- **Auditoria:** registro de eventos relevantes no banco e em arquivo JSON Lines.
+- **API documentada:** interface Swagger UI para explorar os endpoints.
+
+## 🧰 Tecnologias utilizadas
 
 | Camada | Tecnologias | Responsabilidade |
-|---|---|---|
-| Frontend | React, TypeScript, Vite | Interface e interação com o usuário |
-| Estilos | Tailwind CSS e CSS | Layout responsivo e identidade visual |
-| Comunicação | Fetch API, JSON, HTTP | Chamadas do frontend para a API |
-| Backend | Python, FastAPI, Pydantic | Endpoints, validação e regras de negócio |
-| Persistência | SQLite, aiosqlite | Usuários, sessões, serviços, agendamentos e auditoria |
-| Autenticação | bcrypt, `secrets`, SHA-256 | Hash de senhas e proteção dos tokens de sessão armazenados |
-| Testes | pytest, httpx | Testes automatizados do backend e endpoints |
+| :-- | :-- | :-- |
+| **Frontend** | React, TypeScript, Vite | Páginas, componentes e interações |
+| **Interface** | Tailwind CSS, CSS | Estilização e responsividade |
+| **Comunicação** | Fetch API, JSON, HTTP | Integração entre navegador e backend |
+| **Backend** | Python, FastAPI, Pydantic | Rotas, validações e regras de negócio |
+| **Banco de dados** | SQLite, aiosqlite | Persistência dos registros |
+| **Autenticação** | bcrypt, cookies HTTP-only, tokens de sessão | Controle de acesso |
+| **Testes** | pytest, httpx | Testes automatizados do backend |
 
-## Arquitetura e estrutura
+## 🧱 Arquitetura
+
+O sistema separa a apresentação das telas das regras de negócio. O **React** consome a **API FastAPI**, que valida as requisições, aplica autenticação e autorização e persiste as informações no **SQLite**.
+
+```mermaid
+flowchart LR
+    U[Cliente / Barbeiro / Admin] --> F[Frontend React + TypeScript]
+    F -->|HTTP + JSON| A[API FastAPI]
+    A --> B[(SQLite)]
+    A --> L[Auditoria / Logs]
+```
+
+### Estrutura principal
 
 ```text
-Realeza_Barbers-main/
+Realeza_Barbers/
 ├── backend/
 │   ├── app/
-│   │   ├── application.py       # composição da aplicação, CORS e dependências
-│   │   ├── auth.py              # cadastro, login, sessão e autenticação
-│   │   ├── authorization.py     # regras de autorização administrativa
-│   │   ├── bookings.py          # regras de agendamento e permissões por perfil
-│   │   ├── resources.py         # endpoints de usuários, serviços e disponibilidade
-│   │   ├── database.py          # SQLite e implementações dos repositórios
-│   │   ├── schema.sql           # tabelas, índices e restrições do banco
-│   │   ├── audit.py             # eventos de auditoria
-│   │   ├── cli.py               # utilitários de linha de comando
-│   │   └── __main__.py          # entrada alternativa do módulo
+│   │   ├── application.py       # Inicialização e configuração FastAPI
+│   │   ├── auth.py              # Cadastro, login e sessões
+│   │   ├── authorization.py     # Controle de acesso
+│   │   ├── bookings.py          # Regras de agendamento
+│   │   ├── resources.py         # Serviços, usuários e disponibilidade
+│   │   ├── database.py          # Acesso aos dados
+│   │   ├── schema.sql           # Esquema SQLite
+│   │   └── audit.py             # Registros de auditoria
 │   ├── scripts/
-│   │   └── seed.py              # criação de dados iniciais de demonstração
-│   └── tests/                   # testes automatizados
+│   │   └── seed.py              # Dados locais de demonstração
+│   └── tests/                   # Testes do backend
 ├── frontend/
-│   ├── public/                  # arquivos públicos, incluindo favicon
+│   ├── public/                  # Arquivos públicos
 │   └── src/
-│       ├── components/          # layout, botão e marca
-│       ├── pages/               # páginas da aplicação
-│       ├── services/api.ts      # cliente HTTP da API
-│       ├── types/api.ts         # tipos compartilhados no frontend
-│       ├── App.tsx              # estado e navegação da interface
-│       └── main.tsx             # inicialização React
-├── docs/
-│   ├── ARQUITETURA.md           # componentes, fluxos e modelo de dados
-│   └── SEGURANCA.md             # práticas de desenvolvimento seguro
-├── AUDIT.md                    # escopo, correções e limitações da auditoria
+│       ├── components/          # Componentes reutilizáveis
+│       ├── pages/               # Telas da aplicação
+│       ├── services/api.ts      # Cliente HTTP
+│       ├── types/api.ts         # Tipos TypeScript
+│       ├── App.tsx              # Composição da interface
+│       └── main.tsx             # Ponto de entrada React
+├── imgs/                       # Recursos visuais
+├── .env.example                # Referência de configuração
+├── .gitignore
+├── AUDIT.md                    # Revisão técnica e limitações
+├── pytest.ini
 ├── requirements.txt
 └── README.md
 ```
 
-Para uma explicação dos componentes e do fluxo entre navegador, API e banco, veja [docs/ARQUITETURA.md](docs/ARQUITETURA.md).
+> A árvore apresenta os diretórios e módulos documentados na versão consultada do repositório. As imagens acima são placeholders e não fazem parte necessariamente da árvore atual.
 
-## Perfis e permissões
+## 🔐 Perfis e permissões
 
-- **Cliente (`user`)**: consulta serviços e disponibilidade; cria agendamentos para si; consulta, altera ou cancela apenas os próprios agendamentos, respeitando as regras de horário.
-- **Barbeiro (`barber`)**: consulta e gerencia os próprios agendamentos; não pode criar ou transferir agendamentos para outro barbeiro.
-- **Administrador (`admin`)**: gerencia usuários e serviços e pode consultar agendamentos de todos os barbeiros.
+| Perfil | Principais ações |
+| :-- | :-- |
+| **Cliente** | Consultar serviços, verificar disponibilidade e gerenciar os próprios agendamentos |
+| **Barbeiro** | Consultar e gerenciar os agendamentos atribuídos a si |
+| **Administrador** | Gerenciar usuários e serviços e consultar agendamentos dos profissionais |
 
-A interface esconde páginas conforme o perfil para melhorar a experiência, mas a segurança não depende disso: a API verifica a sessão, o perfil e a autorização no backend.
+A ocultação de páginas no frontend melhora a experiência, mas a **autorização efetiva acontece na API**, que verifica a sessão e as permissões do usuário.
 
-## Executar localmente
+## 🚀 Executando localmente
 
-### Requisitos
+### Pré-requisitos
 
-- Python 3.10 ou superior (recomendado: versão compatível com as dependências instaladas).
+- Python **3.10+**, com `venv` e `pip`.
 - Node.js e npm.
-- Git, opcionalmente, para clonar o repositório.
+- Git, para clonar o repositório.
 
-### 1. Obter o projeto
+### 1. Clone o repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd Realeza_Barbers-main
+git clone https://github.com/filipemtr/Realeza_Barbers.git
+cd Realeza_Barbers
 ```
 
-Substitui `<URL_DO_REPOSITORIO>` pelo endereço do teu repositório no GitHub.
-
-### 2. Instalar e iniciar o backend
+### 2. Inicie o backend
 
 Na raiz do projeto:
 
 ```bash
-python -m venv venv
-source venv/bin/activate       # Linux/macOS
-# Windows PowerShell: .\venv\Scripts\Activate.ps1
+python -m venv .venv
+source .venv/bin/activate
+# Windows PowerShell: .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-Cria as contas e os serviços iniciais:
+Para criar dados iniciais de demonstração:
 
 ```bash
 PYTHONPATH=backend python backend/scripts/seed.py
 ```
 
-Inicia a API:
+Inicie a API:
 
 ```bash
 python -m uvicorn app.application:create_app --factory --app-dir backend --reload
 ```
 
-Endereços locais:
+API em **http://localhost:8000** · Swagger em **http://localhost:8000/docs**
 
-- API: <http://localhost:8000>
-- Swagger UI: <http://localhost:8000/docs>
-- OpenAPI JSON: <http://localhost:8000/openapi.json>
-- Health check: <http://localhost:8000/health>
+> No Windows, se necessário, defina `PYTHONPATH=backend` pela sintaxe do seu terminal antes de executar o seed.
 
-### 3. Instalar e iniciar o frontend
+### 3. Inicie o frontend
 
-Abre outro terminal, na raiz do projeto:
+Em **outro terminal**, na raiz do projeto:
 
 ```bash
 cd frontend
@@ -151,93 +171,56 @@ npm install
 npm run dev
 ```
 
-Acessa o endereço informado pelo Vite, normalmente <http://localhost:5173>.
+Acesse o endereço fornecido pelo Vite, normalmente **http://localhost:5173**.
 
-Mantém os dois processos ativos: o frontend é servido pelo Vite e faz chamadas HTTP para a API FastAPI.
+### 4. Configuração opcional
 
-### 4. Configurar a URL da API no frontend
-
-O frontend usa `http://localhost:8000` por padrão. Para mudar a origem, cria `frontend/.env`:
+O frontend utiliza `http://localhost:8000` por padrão. Para outra URL, crie `frontend/.env`:
 
 ```dotenv
 VITE_API_URL=http://localhost:8000
 ```
 
-O valor de `VITE_API_URL` é incorporado ao frontend durante o build; não coloques senhas, chaves privadas ou segredos nesse arquivo.
+> Variáveis `VITE_*` são incorporadas ao frontend; **nunca inclua nelas segredos ou credenciais**.
 
-## Variáveis de ambiente
+## ⚙️ Variáveis de ambiente
 
-| Variável | Finalidade | Padrão local |
-|---|---|---|
-| `REALEZA_DB_PATH` | Caminho do arquivo SQLite | `data/realeza.db` |
-| `REALEZA_CORS_ORIGINS` | Lista separada por vírgulas de origens autorizadas pelo CORS | `http://localhost:5173` |
-| `REALEZA_FRONTEND_URL` | Origem do frontend, usada como alternativa à lista CORS | `http://localhost:5173` |
-| `REALEZA_COOKIE_SECURE` | Força o atributo `Secure` do cookie (`true`/`false`) | Inferido da origem configurada |
-| `REALEZA_CLIENT_EMAIL` | E-mail da conta de demonstração cliente | `cliente@realeza.local` |
-| `REALEZA_CLIENT_PASSWORD` | Senha da conta de demonstração cliente | `Cliente123!` |
-| `REALEZA_BARBER_EMAIL` | E-mail da conta de demonstração barbeiro | `barbeiro@realeza.local` |
-| `REALEZA_BARBER_PASSWORD` | Senha da conta de demonstração barbeiro | `Barbeiro123!` |
-| `REALEZA_ADMIN_EMAIL` | E-mail da conta de demonstração administrador | `admin@realeza.local` |
-| `REALEZA_ADMIN_PASSWORD` | Senha da conta de demonstração administrador | `Admin123!` |
+O repositório fornece um arquivo [`.env.example`](.env.example) como referência. Entre as configurações documentadas estão:
 
-**Atenção:** as credenciais padrão são apenas para ambiente local. Define valores próprios e fortes antes de qualquer publicação. O script de seed não altera a senha de uma conta que já existe.
+| Variável | Finalidade |
+| :-- | :-- |
+| `REALEZA_DB_PATH` | Caminho do banco SQLite; padrão `data/realeza.db` |
+| `REALEZA_CORS_ORIGINS` | Origens permitidas para acesso à API |
+| `REALEZA_FRONTEND_URL` | URL do frontend |
+| `REALEZA_COOKIE_SECURE` | Uso do atributo `Secure` nos cookies |
+| `REALEZA_CLIENT_EMAIL` / `REALEZA_CLIENT_PASSWORD` | Conta de demonstração de cliente |
+| `REALEZA_BARBER_EMAIL` / `REALEZA_BARBER_PASSWORD` | Conta de demonstração de barbeiro |
+| `REALEZA_ADMIN_EMAIL` / `REALEZA_ADMIN_PASSWORD` | Conta de demonstração administrativa |
 
-Para um ambiente de produção, define a origem exata do frontend e usa HTTPS. Se frontend e API estiverem em sites diferentes, lê a seção de cookies e CSRF em [docs/SEGURANCA.md](docs/SEGURANCA.md).
+Para desenvolvimento, o script de seed pode criar usuários e serviços de exemplo. As credenciais demonstrativas documentadas no repositório **não são adequadas para produção**: defina senhas novas e restrinja a execução do seed a ambientes locais.
 
-## Contas e dados de demonstração
+## 📡 API REST
 
-O seed cria, quando ainda não existem:
+A documentação interativa está disponível em `/docs` com o backend em execução. Entre os grupos de rotas descritos no repositório estão:
 
-| Perfil | E-mail local padrão | Senha local padrão |
-|---|---|---|
-| Cliente | `cliente@realeza.local` | `Cliente123!` |
-| Barbeiro | `barbeiro@realeza.local` | `Barbeiro123!` |
-| Administrador | `admin@realeza.local` | `Admin123!` |
+| Grupo | Rotas principais |
+| :-- | :-- |
+| Autenticação | `/auth/register`, `/auth/login`, `/auth/logout`, `/auth/me` |
+| Serviços | `/services` |
+| Disponibilidade | `/availability` |
+| Agendamentos | `/appointments` |
+| Administração | `/admin/users`, `/admin/barbers`, `/admin/clients` |
+| Status | `/health` |
 
-Serviços iniciais:
+## 🧪 Testes e validação
 
-| Serviço | Preço de demonstração | Duração |
-|---|---:|---:|
-| Corte | R$ 30,00 | 30 minutos |
-| Barba | R$ 20,00 | 20 minutos |
-| Combo | R$ 45,00 | 50 minutos |
-
-O seed é idempotente em relação aos registros existentes: não duplica usuários e serviços com os mesmos identificadores naturais, e não redefine senhas já cadastradas.
-
-## API
-
-A API completa e os schemas de request/response estão disponíveis no Swagger UI em `/docs` enquanto o backend estiver rodando. Os principais grupos são:
-
-- **Autenticação:** `/auth/register`, `/auth/login`, `/auth/logout`, `/auth/me`.
-- **Serviços:** `/services`.
-- **Agendamentos:** `/appointments`.
-- **Disponibilidade:** `/availability`.
-- **Administração:** `/admin/users`, `/admin/barbers`, `/admin/clients`.
-- **Sistema:** `/health`.
-
-A tabela de endpoints, permissões e códigos de resposta está em [docs/API.md](docs/API.md).
-
-## Banco de dados
-
-O SQLite é configurado em `backend/app/schema.sql`; por padrão, o arquivo fica em `data/realeza.db`. As entidades principais são:
-
-- `users`: identidade, e-mail, hash da senha, estado ativo e perfil.
-- `services`: nome, descrição, preço em centavos, duração e estado ativo.
-- `sessions`: hash do token de sessão, usuário associado e expiração.
-- `appointments`: barbeiro, cliente, serviço, início, fim e estado.
-- `audit_logs`: eventos de auditoria e detalhes serializados.
-
-O schema aplica chaves estrangeiras, restrições `CHECK`, unicidade e índices para consultas comuns. O arquivo local do banco e os logs JSONL são ignorados pelo `.gitignore`; não publiques dados reais de clientes.
-
-## Testes
-
-Instala as dependências do backend e executa na raiz:
+Para rodar os testes automatizados do backend:
 
 ```bash
 PYTHONPATH=backend python -m pytest -q backend/tests
 ```
 
-Para validar o frontend:
+Para validar o build do frontend:
 
 ```bash
 cd frontend
@@ -245,17 +228,39 @@ npm ci
 npm run build
 ```
 
-A documentação de segurança registra o estado da auditoria e as limitações conhecidas. Não assumas que a suíte passou se não tiveres executado os comandos localmente.
+> Os comandos acima são os previstos na documentação do projeto. **Este README não afirma que esses testes foram executados nesta revisão.** Consulte [AUDIT.md](AUDIT.md) para o escopo da revisão técnica existente e suas limitações.
 
-## Desenvolvimento seguro
+## 🛡️ Segurança e boas práticas
 
-A seção dedicada está em **[docs/SEGURANCA.md](docs/SEGURANCA.md)**. Ela diferencia hash de criptografia, documenta bcrypt, hash dos tokens de sessão, cookies, HTTPS/TLS, autorização por perfil, validação de entrada, SQL parametrizado, tratamento de erros e itens pendentes antes de produção.
+A arquitetura contempla medidas como:
 
-## Contribuir
+- **Senhas protegidas por hash bcrypt**, sem armazenamento em texto puro.
+- **Sessões com cookies HTTP-only** e tokens protegidos no armazenamento.
+- **Controle de acesso no backend** por perfil e proprietário do recurso.
+- **Validação de dados** com Pydantic e regras específicas para horários de agendamento.
+- **Configuração de CORS e cookies** adequada ao ambiente.
+- **Registro de auditoria** para eventos relevantes.
 
-1. Cria uma branch para a alteração.
-2. Mantém regras de negócio no backend; validações de interface são complementares, nunca substituem a API.
-3. Adiciona ou atualiza testes para as regras alteradas.
-4. Executa a suíte Python e o build do frontend.
-5. Não inclui `.env`, bancos reais, logs, senhas ou tokens nos commits.
-6. Documenta mudanças de endpoints, variáveis de ambiente e comportamento de segurança.
+O relatório [AUDIT.md](AUDIT.md) descreve correções já realizadas, incluindo tratamento de e-mails duplicados, revogação de sessões e validações de horários. Ele também aponta limitações importantes: o projeto **não deve ser considerado pronto para produção sem testes e configuração adicionais**, incluindo HTTPS, proteção contra tentativas excessivas de login, monitoramento e estratégia de backup.
+
+## 🎯 Objetivos do projeto
+
+O Realeza Barbers demonstra, na prática, a construção de uma aplicação full stack com foco em:
+
+- **Modelagem de dados e regras de negócio** para horários, serviços e agendamentos.
+- **Separação de responsabilidades** entre interface, API e persistência.
+- **Autenticação e autorização**, com múltiplos perfis de usuário.
+- **Validação e testes** para comportamentos críticos.
+- **Usabilidade**, com interface responsiva e experiência de agendamento mais simples.
+
+## 👨‍💻 Autor
+
+Desenvolvido por **[Filipe](https://github.com/filipemtr)** como projeto de estudo e portfólio.
+
+<div align="center">
+
+---
+
+**Realeza Barbers** · Tecnologia para organizar a rotina de quem cuida do seu estilo. ✂️👑
+
+</div>
